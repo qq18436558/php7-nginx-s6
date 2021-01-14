@@ -1,4 +1,4 @@
-FROM php:7.3-fpm-stretch
+FROM ubuntu:18.04
 
 MAINTAINER sadoknet@gmail.com
 ENV DEBIAN_FRONTEND=noninteractive
