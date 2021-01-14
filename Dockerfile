@@ -7,11 +7,9 @@ ADD https://github.com/just-containers/s6-overlay/releases/download/v2.1.0.2/s6-
 RUN tar xzf /tmp/s6-overlay-amd64.tar.gz -C /
 
 RUN \
-  	apt-get -y update && \
+  	apt-get -y update && apt-get -y install procps \
   	apt-get -y install --no-install-recommends \
-  	nginx zip unzip\
-    gcc nasm build-essential make wget vim git && \
-    rm -rf /var/lib/apt/lists/*
+  	nginx
 
 COPY resources/etc/ /etc/
 
