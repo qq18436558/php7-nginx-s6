@@ -21,4 +21,3 @@ ADD . /var/www/html
 WORKDIR /var/www/html
 
 ENTRYPOINT ["/init"]
-apt-get update  &&  apt-get install procps
