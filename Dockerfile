@@ -13,29 +13,11 @@ RUN \
     gcc nasm build-essential make wget vim git && \
     rm -rf /var/lib/apt/lists/*
 
-#opcache
-RUN docker-php-ext-install opcache mysqli pdo_mysql
-
-#xdebug
-RUN pecl install xdebug && \
-    echo "zend_extension=/usr/local/lib/php/extensions/no-debug-non-zts-20180731/xdebug.so" > /usr/local/etc/php/conf.d/xdebug.ini && \
-    echo "expose_php=off" > /usr/local/etc/php/conf.d/expose_php.ini
-
-#composer
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-
-#disable output access.log to stdout
-RUN sed -i -e 's#access.log = /proc/self/fd/2#access.log = /proc/self/fd/1#g'  /usr/local/etc/php-fpm.d/docker.conf
-
-#copy etc/
 COPY resources/etc/ /etc/
 
 ENV PORT 80
 
-COPY resources/docker-entrypoint.sh /usr/local/bin/docker-entrypoint
-RUN chmod +x /usr/local/bin/docker-entrypoint
-
 ADD . /var/www/html
 WORKDIR /var/www/html
 
-ENTRYPOINT ["docker-entrypoint", "/init"]
+ENTRYPOINT ["/init"]
